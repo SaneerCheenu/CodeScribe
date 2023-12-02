@@ -28,6 +28,11 @@ async def read_item(request: Request):
 #     inserted_note = conn.notes.notes.insert_one(dict(note))
 #     return noteEntity(inserted_note)
 
-@note.post("/", response_class=HTMLResponse)
+@note.post("/")
 async def create_item(request: Request):
-    pass
+    form = await request.form()
+    print(form)
+    formDict = dict(form)
+    formDict["important"] = True if formDict["important"] == "on" else False
+    note = conn.notes.notes.insert_one(formDict)
+    return {"Success": True}
