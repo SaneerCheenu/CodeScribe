@@ -16,14 +16,18 @@ async def read_item(request: Request):
     for doc in docs:
         newDocs.append({
             "id": doc["_id"],
-            "note": doc["note"],
-            # "title": doc["title"],
-            # "desc": doc["desc"],
-            # "important": doc["important"]
+            "title": doc["title"],
+            "desc": doc["desc"],
+            "important": doc["important"],
         })
     return templates.TemplateResponse("index.html", {"request": request, "newDocs": newDocs})
 
 
-@note.get("/items/{item_id}")
-def read_item(item_id: int, q: str | None = None):
-    return {"item_id": item_id, "q": q}
+# @note.post("/")
+# def add_note(note: Note):
+#     inserted_note = conn.notes.notes.insert_one(dict(note))
+#     return noteEntity(inserted_note)
+
+@note.post("/", response_class=HTMLResponse)
+async def create_item(request: Request):
+    pass
