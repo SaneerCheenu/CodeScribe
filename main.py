@@ -1,14 +1,7 @@
-from typing import Union
-
+from fastapi import FastAPI
+from routes.note import note
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from pymongo import MongoClient
 
 app = FastAPI()
-
-conn = MongoClient("mongodb+srv://saneer2001:jaishreeram@mongopject.bh69gat.mongodb.net/")
-
-
-
-
-
+app.mount("/static", StaticFiles(directory="static"), name="static")
+app.include_router(note)
